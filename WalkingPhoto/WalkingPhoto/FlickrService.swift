@@ -78,6 +78,11 @@ struct PhotoSearchResponse: Decodable {
             let ispublic: Int
             let isfriend: Int
             let isfamily: Int
+
+            var imageUrl: URL? {
+                let urlString = "https://live.staticflickr.com/\(server)/\(id)_\(secret)_w.jpg"
+                return URL(string: urlString)
+            }
         }
     }
 }
