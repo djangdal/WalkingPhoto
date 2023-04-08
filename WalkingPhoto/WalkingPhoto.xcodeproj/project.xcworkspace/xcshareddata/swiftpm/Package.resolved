@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "cosynetwork",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/djangdal/CosyNetwork",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d5e8d009297d1cd40b04ad3e9a795058062cd16a"
+      }
+    }
+  ],
+  "version" : 2
+}
