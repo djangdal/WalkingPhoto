@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		FA10E0B229DEB5F5008983E7 /* WalkingPhotoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0B129DEB5F5008983E7 /* WalkingPhotoApp.swift */; };
-		FA10E0B429DEB5F5008983E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0B329DEB5F5008983E7 /* ContentView.swift */; };
+		FA10E0B429DEB5F5008983E7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0B329DEB5F5008983E7 /* MainView.swift */; };
 		FA10E0B629DEB5F7008983E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA10E0B529DEB5F7008983E7 /* Assets.xcassets */; };
 		FA10E0B929DEB5F7008983E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA10E0B829DEB5F7008983E7 /* Preview Assets.xcassets */; };
 		FA10E0C329DEB5F7008983E7 /* WalkingPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0C229DEB5F7008983E7 /* WalkingPhotoTests.swift */; };
 		FA10E0CD29DEB5F7008983E7 /* WalkingPhotoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0CC29DEB5F7008983E7 /* WalkingPhotoUITests.swift */; };
 		FA10E0CF29DEB5F7008983E7 /* WalkingPhotoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0CE29DEB5F7008983E7 /* WalkingPhotoUITestsLaunchTests.swift */; };
+		FA10E0DC29DEB62D008983E7 /* FlickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0DB29DEB62D008983E7 /* FlickrService.swift */; };
+		FA10E0DF29DEB64D008983E7 /* CosyNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = FA10E0DE29DEB64D008983E7 /* CosyNetwork */; };
+		FA10E0E129DEBD77008983E7 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0E029DEBD77008983E7 /* MainViewModel.swift */; };
+		FA10E0E729DECAE2008983E7 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0E629DECAE2008983E7 /* LocationService.swift */; };
+		FAB9540F29E048ED0015383B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9540E29E048ED0015383B /* View.swift */; };
+		FAF21DEC29E0AD0F0008EF7F /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF21DEB29E0AD0F0008EF7F /* ImageCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +42,7 @@
 /* Begin PBXFileReference section */
 		FA10E0AE29DEB5F5008983E7 /* WalkingPhoto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalkingPhoto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA10E0B129DEB5F5008983E7 /* WalkingPhotoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkingPhotoApp.swift; sourceTree = "<group>"; };
-		FA10E0B329DEB5F5008983E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FA10E0B329DEB5F5008983E7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FA10E0B529DEB5F7008983E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA10E0B829DEB5F7008983E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FA10E0BE29DEB5F7008983E7 /* WalkingPhotoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalkingPhotoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +50,12 @@
 		FA10E0C829DEB5F7008983E7 /* WalkingPhotoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalkingPhotoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA10E0CC29DEB5F7008983E7 /* WalkingPhotoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkingPhotoUITests.swift; sourceTree = "<group>"; };
 		FA10E0CE29DEB5F7008983E7 /* WalkingPhotoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkingPhotoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FA10E0DB29DEB62D008983E7 /* FlickrService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrService.swift; sourceTree = "<group>"; };
+		FA10E0E029DEBD77008983E7 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		FA10E0E629DECAE2008983E7 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		FA10E0E829DEFB94008983E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FAB9540E29E048ED0015383B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		FAF21DEB29E0AD0F0008EF7F /* ImageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA10E0DF29DEB64D008983E7 /* CosyNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,8 +107,14 @@
 		FA10E0B029DEB5F5008983E7 /* WalkingPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				FA10E0E829DEFB94008983E7 /* Info.plist */,
 				FA10E0B129DEB5F5008983E7 /* WalkingPhotoApp.swift */,
-				FA10E0B329DEB5F5008983E7 /* ContentView.swift */,
+				FA10E0B329DEB5F5008983E7 /* MainView.swift */,
+				FA10E0E029DEBD77008983E7 /* MainViewModel.swift */,
+				FAF21DEB29E0AD0F0008EF7F /* ImageCardView.swift */,
+				FA10E0DB29DEB62D008983E7 /* FlickrService.swift */,
+				FA10E0E629DECAE2008983E7 /* LocationService.swift */,
+				FAF21DEF29E0ADD50008EF7F /* Extensions */,
 				FA10E0B529DEB5F7008983E7 /* Assets.xcassets */,
 				FA10E0B729DEB5F7008983E7 /* Preview Content */,
 			);
@@ -127,6 +146,14 @@
 			path = WalkingPhotoUITests;
 			sourceTree = "<group>";
 		};
+		FAF21DEF29E0ADD50008EF7F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FAB9540E29E048ED0015383B /* View.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +170,9 @@
 			dependencies = (
 			);
 			name = WalkingPhoto;
+			packageProductDependencies = (
+				FA10E0DE29DEB64D008983E7 /* CosyNetwork */,
+			);
 			productName = WalkingPhoto;
 			productReference = FA10E0AE29DEB5F5008983E7 /* WalkingPhoto.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +245,9 @@
 				Base,
 			);
 			mainGroup = FA10E0A529DEB5F5008983E7;
+			packageReferences = (
+				FA10E0DD29DEB64D008983E7 /* XCRemoteSwiftPackageReference "CosyNetwork" */,
+			);
 			productRefGroup = FA10E0AF29DEB5F5008983E7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +290,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA10E0B429DEB5F5008983E7 /* ContentView.swift in Sources */,
+				FA10E0B429DEB5F5008983E7 /* MainView.swift in Sources */,
 				FA10E0B229DEB5F5008983E7 /* WalkingPhotoApp.swift in Sources */,
+				FA10E0DC29DEB62D008983E7 /* FlickrService.swift in Sources */,
+				FA10E0E729DECAE2008983E7 /* LocationService.swift in Sources */,
+				FAB9540F29E048ED0015383B /* View.swift in Sources */,
+				FAF21DEC29E0AD0F0008EF7F /* ImageCardView.swift in Sources */,
+				FA10E0E129DEBD77008983E7 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +458,9 @@
 				DEVELOPMENT_TEAM = BY3FQHBKKV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WalkingPhoto/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need to track your location in background to follow your position";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need this to track your walk";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,6 +490,9 @@
 				DEVELOPMENT_TEAM = BY3FQHBKKV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WalkingPhoto/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need to track your location in background to follow your position";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need this to track your walk";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -583,6 +627,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA10E0DD29DEB64D008983E7 /* XCRemoteSwiftPackageReference "CosyNetwork" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/djangdal/CosyNetwork";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA10E0DE29DEB64D008983E7 /* CosyNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA10E0DD29DEB64D008983E7 /* XCRemoteSwiftPackageReference "CosyNetwork" */;
+			productName = CosyNetwork;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA10E0A629DEB5F5008983E7 /* Project object */;
 }
