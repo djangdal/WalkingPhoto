@@ -12,12 +12,15 @@ import Combine
 enum TrackingMode {
     case notStarted
     case tracking
+    case paused
 }
 
 protocol MainViewModelProtocol: ObservableObject {
     var imageCards: [ImageCardViewData] { get }
     var trackingMode: TrackingMode { get }
     func didTapStart()
+    func didTapStop()
+    func didTapResume()
 }
 
 final class MainViewModel {
@@ -33,6 +36,7 @@ final class MainViewModel {
         self.flickerService = flickerService
         self.locationService = locationService
         subscribeToPhotoLocations()
+        subscribeToLocationUpdates()
     }
 }
 
@@ -64,7 +68,7 @@ private extension MainViewModel {
                 guard let distance = self?.locationsSubject.value.first?.distance(from: location) else {
                     return true
                 }
-                return distance > 10
+                return distance > 100
             }
             .sink(receiveValue: { [weak self] location in
                 self?.locationsSubject.value.insert(location, at: 0)
@@ -78,7 +82,16 @@ extension MainViewModel: MainViewModelProtocol {
         trackingMode = .tracking
         locationService.requestLocationPermission()
         locationService.startUpdatingLocation()
-        subscribeToLocationUpdates()
+    }
+
+    func didTapStop() {
+        trackingMode = .paused
+        locationService.stopUpdatingLocation()
+    }
+
+    func didTapResume() {
+        trackingMode = .tracking
+        locationService.startUpdatingLocation()
     }
 }
 

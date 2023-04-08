@@ -14,6 +14,7 @@ protocol LocationServiceProtocol {
     var locationPublisher: AnyPublisher<CLLocation, Never> { get }
     func requestLocationPermission()
     func startUpdatingLocation()
+    func stopUpdatingLocation()
 }
 
 final class LocationService: NSObject {
@@ -48,6 +49,10 @@ extension LocationService: LocationServiceProtocol {
 
     func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
+    }
+
+    func stopUpdatingLocation() {
+        locationManager.stopUpdatingLocation()
     }
 }
 

@@ -14,7 +14,7 @@ struct MainView<ViewModel: MainViewModelProtocol>: View {
     var body: some View {
         switch viewModel.trackingMode {
         case .notStarted: startButtonView
-        case .tracking: photosView
+        case .tracking, .paused: photosView
         }
     }
 
@@ -30,16 +30,33 @@ struct MainView<ViewModel: MainViewModelProtocol>: View {
         }
     }
 
-    var photosView: some View {
-        ScrollView {
-            VStack {
-                ForEach(viewModel.imageCards) { imageCard in
-                    ImageCardView(imageData: imageCard)
-                }
+    var stopButton: some View {
+        HStack {
+            Spacer()
+            Button(action: viewModel.trackingMode == .tracking ? viewModel.didTapStop: viewModel.didTapResume) {
+                Text(viewModel.trackingMode == .tracking ? "Stop" : "Resume")
+                    .padding(vertical: 4, horizontal: 12)
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(6)
             }
-            .padding(0)
+            .padding(trailing: 10)
         }
-        .background(Color.black.opacity(0.1))
+    }
+
+    var photosView: some View {
+        VStack {
+            stopButton
+            ScrollView {
+                VStack {
+                    ForEach(viewModel.imageCards) { imageCard in
+                        ImageCardView(imageData: imageCard)
+                    }
+                }
+                .padding(0)
+            }
+            .background(Color.black.opacity(0.1))
+        }
     }
 }
 
@@ -50,7 +67,15 @@ struct MainView_Previews: PreviewProvider {
 }
 
 private class MockViewModel: MainViewModelProtocol {
-    var imageCards: [ImageCardViewData] = []
+    var imageCards: [ImageCardViewData] = [
+        .init(location: .init(),
+              url: URL(string: "https://picsum.photos/200/300")!),
+        .init(location: .init(),
+              url: URL(string: "https://picsum.photos/200/300")!),
+        .init(location: .init(),
+              url: URL(string: "https://picsum.photos/200/300")!)]
     var trackingMode: TrackingMode = .tracking
     func didTapStart() {}
+    func didTapStop() {}
+    func didTapResume() {}
 }
