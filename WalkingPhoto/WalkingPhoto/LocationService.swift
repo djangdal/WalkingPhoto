@@ -20,7 +20,7 @@ protocol LocationServiceProtocol {
 final class LocationService: NSObject {
     private let locationManager: CLLocationManager
     private var locationSubject: CurrentValueSubject<CLLocation?, Never>
-
+    
     init(locationManager: CLLocationManager) {
         self.locationManager = locationManager
         locationSubject = CurrentValueSubject(nil)
@@ -38,19 +38,19 @@ extension LocationService: LocationServiceProtocol {
     var location: CLLocation? {
         locationManager.location
     }
-
+    
     var locationPublisher: AnyPublisher<CLLocation, Never> {
         locationSubject.compactMap { $0 }.eraseToAnyPublisher()
     }
-
+    
     func requestLocationPermission() {
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
     }
-
+    
     func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
     }
-
+    
     func stopUpdatingLocation() {
         locationManager.stopUpdatingLocation()
     }
@@ -58,12 +58,26 @@ extension LocationService: LocationServiceProtocol {
 
 extension LocationService: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .notDetermined:
+            break;
+        case .restricted, .denied:
+            // Here we could send user to settings if we want
+            break;
+        case .authorizedWhenInUse:
+            locationManager.requestAlwaysAuthorization()
+            break;
+        case .authorizedAlways:
+            break;
+        default:
+            return
+        }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locations.forEach { locationSubject.send($0) }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     }
 }
