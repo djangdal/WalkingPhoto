@@ -10,34 +10,22 @@ import CosyNetwork
 import CoreLocation
 
 protocol FlickrServiceProtocol: AnyObject {
-    func searchForPhotoURL(at location: CLLocation) async throws -> URL
-}
-
-enum FlickrServiceError: Error {
-    case searchHasNoImageURL
+    func searchForPhotoURL(at location: CLLocation) async throws -> [PhotoSearchResponse.Photos.Photo] 
 }
 
 actor FlickrService: FlickrServiceProtocol {
     private let dispatcher: APIDispatcher
-    private var cache = [CLLocation: URL]()
 
     init(dispatcher: APIDispatcher) {
         self.dispatcher = dispatcher
     }
 
-    func searchForPhotoURL(at location: CLLocation) async throws -> URL {
-        if let url = cache[location] {
-            return url
-        }
+    func searchForPhotoURL(at location: CLLocation) async throws -> [PhotoSearchResponse.Photos.Photo] {
         let request = PhotoSearchRequest(latitude: location.coordinate.latitude,
                                          longitude: location.coordinate.longitude,
-                                         radius: 0.1)
+                                         radius: 5)
         let response = try await dispatcher.dispatch(request)
-        guard let url = response.0.photos.photo.first?.imageUrl else {
-            throw FlickrServiceError.searchHasNoImageURL
-        }
-        cache[location] = url
-        return url
+        return response.0.photos.photo
     }
 }
 
@@ -89,11 +77,6 @@ struct PhotoSearchResponse: Decodable {
             let ispublic: Int
             let isfriend: Int
             let isfamily: Int
-
-            var imageUrl: URL? {
-                let urlString = "https://live.staticflickr.com/\(server)/\(id)_\(secret)_w.jpg"
-                return URL(string: urlString)
-            }
         }
     }
 }

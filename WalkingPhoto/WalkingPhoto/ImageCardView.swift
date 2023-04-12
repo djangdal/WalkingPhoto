@@ -12,16 +12,15 @@ import CoreLocation
 struct ImageCardViewData: Identifiable {
     let id = UUID()
     let location: CLLocation
-    let url: URL
+    let photoService: PhotoServiceProtocol
 }
 
 struct ImageCardView: View {
     let imageData: ImageCardViewData
-
-    @State private var image: UIImage? = nil
+    @State private var url: URL? = nil
 
     @ViewBuilder var imageView: some View {
-        AsyncImage(url: imageData.url, content: { image in
+        AsyncImage(url: url, content: { image in
             image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -60,13 +59,28 @@ struct ImageCardView: View {
         .background(Color.white)
         .cornerRadius(14)
         .padding(10)
+        .onAppear {
+            Task {
+                do {
+                    self.url = try await imageData.photoService.url(for: imageData.location)
+                } catch {
+                    print("Could not get image for location \(error)")
+                    //Here we could show error to user, show some error image, try again etc. Need to discuss with product team which option to take
+                }
+            }
+        }
     }
 }
 
 struct ImageCardView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageCardView(imageData: ImageCardViewData(
-            location: .init(),
-            url: URL(string: "https://picsum.photos/200/300")!))
+        ImageCardView(imageData: ImageCardViewData(location: .init(),
+                                                   photoService: MockPhotoService()))
+    }
+
+    private class MockPhotoService: PhotoServiceProtocol {
+        func url(for location: CLLocation) async throws -> URL {
+            URL(string: "https://picsum.photos/200/300")!
+        }
     }
 }

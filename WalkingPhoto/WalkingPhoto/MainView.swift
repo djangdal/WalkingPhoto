@@ -67,15 +67,20 @@ struct MainView_Previews: PreviewProvider {
 }
 
 private class MockViewModel: MainViewModelProtocol {
-    var imageCards: [ImageCardViewData] = [
-        .init(location: .init(),
-              url: URL(string: "https://picsum.photos/200/300")!),
-        .init(location: .init(),
-              url: URL(string: "https://picsum.photos/200/300")!),
-        .init(location: .init(),
-              url: URL(string: "https://picsum.photos/200/300")!)]
+    var imageCards: [ImageCardViewData] = [.init(location: .init(),
+                                                 photoService: MockPhotoService()),
+                                           .init(location: .init(),
+                                                 photoService: MockPhotoService()),
+                                           .init(location: .init(),
+                                                 photoService: MockPhotoService())]
     var trackingMode: TrackingMode = .tracking
     func didTapStart() {}
     func didTapStop() {}
     func didTapResume() {}
+}
+
+private class MockPhotoService: PhotoServiceProtocol {
+    func url(for location: CLLocation) async throws -> URL {
+        URL(string: "https://picsum.photos/200/300")!
+    }
 }

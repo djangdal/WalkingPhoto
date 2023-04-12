@@ -18,6 +18,7 @@
 		FA10E0DF29DEB64D008983E7 /* CosyNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = FA10E0DE29DEB64D008983E7 /* CosyNetwork */; };
 		FA10E0E129DEBD77008983E7 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0E029DEBD77008983E7 /* MainViewModel.swift */; };
 		FA10E0E729DECAE2008983E7 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA10E0E629DECAE2008983E7 /* LocationService.swift */; };
+		FA7E144129E6A0BF002606BF /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E144029E6A0BF002606BF /* PhotoService.swift */; };
 		FAB9540F29E048ED0015383B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9540E29E048ED0015383B /* View.swift */; };
 		FAF21DEC29E0AD0F0008EF7F /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF21DEB29E0AD0F0008EF7F /* ImageCardView.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,8 @@
 		FA10E0E029DEBD77008983E7 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		FA10E0E629DECAE2008983E7 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		FA10E0E829DEFB94008983E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FA7E144029E6A0BF002606BF /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		FA7E144229E6B7D9002606BF /* Moving.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Moving.gpx; sourceTree = "<group>"; };
 		FAB9540E29E048ED0015383B /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		FAF21DEB29E0AD0F0008EF7F /* ImageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,7 +116,9 @@
 				FA10E0E029DEBD77008983E7 /* MainViewModel.swift */,
 				FAF21DEB29E0AD0F0008EF7F /* ImageCardView.swift */,
 				FA10E0DB29DEB62D008983E7 /* FlickrService.swift */,
+				FA7E144029E6A0BF002606BF /* PhotoService.swift */,
 				FA10E0E629DECAE2008983E7 /* LocationService.swift */,
+				FA7E144229E6B7D9002606BF /* Moving.gpx */,
 				FAF21DEF29E0ADD50008EF7F /* Extensions */,
 				FA10E0B529DEB5F7008983E7 /* Assets.xcassets */,
 				FA10E0B729DEB5F7008983E7 /* Preview Content */,
@@ -290,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA7E144129E6A0BF002606BF /* PhotoService.swift in Sources */,
 				FA10E0B429DEB5F5008983E7 /* MainView.swift in Sources */,
 				FA10E0B229DEB5F5008983E7 /* WalkingPhotoApp.swift in Sources */,
 				FA10E0DC29DEB62D008983E7 /* FlickrService.swift in Sources */,

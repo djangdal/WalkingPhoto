@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import Combine
+import UIKit
 
 enum TrackingMode {
     case notStarted
@@ -27,43 +28,54 @@ final class MainViewModel {
     @Published var imageCards: [ImageCardViewData] = []
     @Published var trackingMode: TrackingMode = .notStarted
 
-    private let flickerService: FlickrServiceProtocol
+    private let photoService: PhotoServiceProtocol
     private let locationService: LocationServiceProtocol
-    private var subscriptions = Set<AnyCancellable>()
+    private var locationsCancellable: AnyCancellable?
+    private var photosCancellable: AnyCancellable?
     private var locationsSubject = CurrentValueSubject<[CLLocation], Never>([])
-    
-    init(flickerService: FlickrServiceProtocol, locationService: LocationServiceProtocol) {
-        self.flickerService = flickerService
+
+    init(photoService: PhotoServiceProtocol, locationService: LocationServiceProtocol) {
+        self.photoService = photoService
         self.locationService = locationService
-        subscribeToPhotoLocations()
-        subscribeToLocationUpdates()
+        subscribeToPhotoUpdates()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didEnterBackground),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+    }
+
+    @objc func didEnterBackground() {
+        photosCancellable?.cancel()
+    }
+
+    @objc func didEnterForeground() {
+        subscribeToPhotoUpdates()
     }
 }
 
 private extension MainViewModel {
-    func subscribeToPhotoLocations() {
-        locationsSubject
+    func subscribeToPhotoUpdates() {
+        photosCancellable = locationsSubject
             .receive(on: RunLoop.main)
-            .sink { locations in
-                Task { @MainActor in
-                    try await withThrowingTaskGroup(of: ImageCardViewData.self) { group in
-                        locations.forEach { location in
-                            group.addTask {
-                                let url = try await self.flickerService.searchForPhotoURL(at: location)
-                                return ImageCardViewData(location: location, url: url)
-                            }
-                        }
-
-                        self.imageCards = try await group
-                            .reduce(into: [ImageCardViewData]()) { $0.append($1) }
-                            .sorted { $0.location.timestamp > $1.location.timestamp}
-                    }
+            .sink { [weak self] locations in
+                guard let self = self else { return }
+                let new = locations
+                    .dropLast(imageCards.count)
+                    .map {
+                    ImageCardViewData(location: $0, photoService: self.photoService)
                 }
-            }.store(in: &subscriptions)
+                imageCards.insert(contentsOf: new, at: 0)
+            }
     }
 
     func subscribeToLocationUpdates() {
-        locationService.locationPublisher
+        locationsCancellable = locationService.locationPublisher
             .filter { [weak self] location in
                 guard let distance = self?.locationsSubject.value.first?.distance(from: location) else {
                     return true
@@ -71,9 +83,9 @@ private extension MainViewModel {
                 return distance > 100
             }
             .sink(receiveValue: { [weak self] location in
-                self?.locationsSubject.value.insert(location, at: 0)
+                guard let self = self else { return }
+                self.locationsSubject.value.insert(location, at: 0)
             })
-            .store(in: &subscriptions)
     }
 }
 
@@ -82,6 +94,7 @@ extension MainViewModel: MainViewModelProtocol {
         trackingMode = .tracking
         locationService.requestLocationPermission()
         locationService.startUpdatingLocation()
+        subscribeToLocationUpdates()
     }
 
     func didTapStop() {

@@ -14,30 +14,24 @@ import CoreLocation
 final class WalkingPhotoTests: XCTestCase {
 
     func testCreateUrlFromPhoto() {
-        let photo = PhotoSearchResponse.Photos.Photo(id: "id",
-                                                     owner: "owner",
-                                                     secret: "secret",
-                                                     server: "server",
-                                                     farm: 1,
-                                                     title: "title",
-                                                     ispublic: 2,
-                                                     isfriend: 3,
-                                                     isfamily: 4)
+        let photo = PhotoParameters(id: "id",
+                                    server: "server",
+                                    secret: "secret")
         XCTAssertEqual(photo.imageUrl?.absoluteString, "https://live.staticflickr.com/server/id_secret_w.jpg")
     }
 
-    func testCreating3Locations() {
+    func testCreating3Locations_andCheckLastIsFirst() {
         let expectation = XCTestExpectation()
-        let flickerService = MockFlickerService()
+        let photoService = MockPhotoService()
         let locationService = MockLocationService()
-        let viewModel = MainViewModel(flickerService: flickerService, locationService: locationService)
+        let viewModel = MainViewModel(photoService: photoService, locationService: locationService)
 
         locationService.locationSubject.send(.init(latitude: 0, longitude: 0))
         locationService.locationSubject.send(.init(latitude: 0, longitude: 1))
         locationService.locationSubject.send(.init(latitude: 0, longitude: 2))
         DispatchQueue.main.asyncAfter(deadline: .now()+2) {
             XCTAssertEqual(viewModel.imageCards.count, 3)
-            XCTAssertEqual(viewModel.imageCards[0].url.absoluteString, "http://example.com")
+            XCTAssertEqual(viewModel.imageCards[0].location.coordinate.longitude, 2)
             expectation.fulfill()
         }
         wait(for: [expectation])
@@ -45,9 +39,9 @@ final class WalkingPhotoTests: XCTestCase {
 
 }
 
-private final class MockFlickerService: FlickrServiceProtocol {
-    func searchForPhotoURL(at location: CLLocation) async throws -> URL {
-        URL(string: "http://example.com")!
+private final class MockPhotoService: PhotoServiceProtocol {
+    func url(for location: CLLocation) async throws -> URL {
+        return URL(string: "https://picsum.photos/200/300")!
     }
 }
 

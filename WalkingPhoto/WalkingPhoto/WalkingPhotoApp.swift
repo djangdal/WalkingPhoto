@@ -16,10 +16,11 @@ struct WalkingPhotoApp: App {
     init() {
         let decoder = JSONDecoder()
         let dispatcher = APIDispatcher(decoder: decoder)
-        let flickerService = FlickrService(dispatcher: dispatcher)
+        let flickrService = FlickrService(dispatcher: dispatcher)
         let locationManager = CLLocationManager()
         let locationService = LocationService(locationManager: locationManager)
-        mainViewModel = MainViewModel(flickerService: flickerService, locationService: locationService)
+        let photoService = PhotoService(flickrService: flickrService)
+        mainViewModel = MainViewModel(photoService: photoService, locationService: locationService)
     }
 
     var body: some Scene {
